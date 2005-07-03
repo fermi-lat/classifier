@@ -1,7 +1,7 @@
 /** @file TrainingInfo.cxx
     @brief implementaion of the class TrainingInfo
 
-    $Header: /cvsroot/d0cvs/classifier/src/TrainingInfo.cpp,v 1.5 2005/02/08 21:14:21 burnett Exp $
+    $Header: /nfs/slac/g/glast/ground/cvs/classifier/src/TrainingInfo.cpp,v 1.1.1.1 2005/07/03 21:31:35 burnett Exp $
 */
 #include "classifier/TrainingInfo.h"
 #include <fstream>
@@ -36,7 +36,7 @@ TrainingInfo::TrainingInfo( const std::string& title,  const std::string& varstr
         readnames("files.txt", files);
         for(std::vector<std::string>::iterator sit = files.begin(); sit!=files.end(); ++sit){
             std::string file_name = *sit;
-            int pos =file_name.find(',') ; 
+            unsigned int pos =file_name.find(',') ; 
             if( pos == std::string::npos) {
                 if(signal_files)  m_signalFiles.push_back(file_name);
                 else m_backgroundFiles.push_back(file_name);

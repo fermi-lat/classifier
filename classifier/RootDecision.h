@@ -2,7 +2,7 @@
     @brief declaration of class RootDecision
 
     @author T. Burnett
-    $Header: /cvsroot/d0cvs/classifier/classifier/RootDecision.h,v 1.3 2005/02/04 12:56:19 burnett Exp $
+    $Header: /nfs/slac/g/glast/ground/cvs/classifier/classifier/RootDecision.h,v 1.1.1.1 2005/07/03 21:31:35 burnett Exp $
 
 */
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -62,8 +62,8 @@ public:
     const DecisionTree* dtree()const{return m_dtree;}
 
 private:
-    RootTuple* m_tuple;
     const DecisionTree* m_dtree;
+    RootTuple* m_tuple;
 
 };
 #endif
