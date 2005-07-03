@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Sun Jul  3 16:50:24 PDT 2005
+classifier/src
+
+Modified Files:
+	TrainingInfo.cpp 
+Log Message:
+fix minor unix warnings
+    *
+------------------------------------------------------------
+User: burnett  Sun Jul  3 16:50:24 PDT 2005
 classifier/doc
 
 Modified Files:
