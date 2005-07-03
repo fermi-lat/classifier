@@ -2,7 +2,7 @@
     @brief declaration of class DecisionTree
 
     @author T. Burnett
-    $Header: /cvsroot/d0cvs/classifier/classifier/DecisionTree.h,v 1.7 2005/04/04 21:31:40 burnett Exp $
+    $Header: /nfs/slac/g/glast/ground/cvs/classifier/classifier/DecisionTree.h,v 1.1.1.1 2005/07/03 21:31:35 burnett Exp $
 
 */
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -79,9 +79,8 @@ private:
     void printNode(std::ostream& out , const DecisionTree::Node * node, unsigned int id)const;
 
     std::vector<std::pair<double, Node*> > m_rootlist;
-    double m_lastWeight;
-
     std::string m_title;
+    double m_lastWeight;
 };
 #endif
 
