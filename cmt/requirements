@@ -1,0 +1,27 @@
+package classifier
+
+version v0
+author T.Burnett <tburnett@u.washington.edu>
+use GlastPolicy *
+use ROOT * IExternal
+use CLHEP * IExternal
+
+apply_pattern package_include
+apply_pattern package_linkopts
+apply_pattern package_stamps
+
+
+#=============================================================
+private
+
+macro source  "*.cpp" WIN32 "*.h *.cpp"
+
+#static  library
+
+library classifier -no_share\
+ -s=../classifier $(source) \
+ -s=../src  $(source) 
+ 
+private
+
+application test_classifier  -s=test *.cpp
