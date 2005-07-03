@@ -1,0 +1,42 @@
+------------------------------------------------------------
+User: burnett  Sun Jul  3 14:31:35 PDT 2005
+classifier
+
+Log Message:
+initial import
+
+Status:
+
+Vendor Tag:	THB
+Release Tags:	v0
+		
+N classifier/.cvsignore
+N classifier/classifier/AdaBoost.h
+N classifier/classifier/BackgroundVsEfficiency.h
+N classifier/classifier/Classifier.h
+N classifier/classifier/DecisionTree.h
+N classifier/classifier/RootDecision.h
+N classifier/classifier/RootLoader.h
+N classifier/classifier/RootTuple.h
+N classifier/classifier/Trainer.h
+N classifier/classifier/TrainerApplication.h
+N classifier/classifier/TrainingInfo.h
+N classifier/cmt/.cvsignore
+N classifier/cmt/requirements
+N classifier/doc/release.notes
+N classifier/src/AdaBoost.cpp
+N classifier/src/BackgroundVsEfficiency.cpp
+N classifier/src/Classifier.cpp
+N classifier/src/DecisionTree.cpp
+N classifier/src/mainpage.h
+N classifier/src/RootDecision.cpp
+N classifier/src/RootLoader.cpp
+N classifier/src/RootTuple.cpp
+N classifier/src/Trainer.cpp
+N classifier/src/TrainerApplication.cpp
+N classifier/src/TrainingInfo.cpp
+N classifier/src/test/Classifier_t.cpp
+
+No conflicts created by this import
+
+    *
