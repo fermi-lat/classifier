@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Sun Jul  3 16:50:24 PDT 2005
+classifier/classifier
+
+Modified Files:
+	DecisionTree.h RootDecision.h 
+Log Message:
+fix minor unix warnings
+    *
+------------------------------------------------------------
 TAG
 Tag name: v0r1, operation: add
 Package: classifier
