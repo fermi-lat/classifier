@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Wed Jul 27 09:02:01 PDT 2005
+classifier/src
+
+Modified Files:
+	TrainingInfo.cpp 
+Log Message:
+enhancements useful for GLAST trainng
+    *
+------------------------------------------------------------
+User: burnett  Wed Jul 27 09:02:01 PDT 2005
 classifier/classifier
 
 Modified Files:
