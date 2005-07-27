@@ -1,7 +1,9 @@
 package classifier
 
-version v1r0
+version v1r1
 author T.Burnett <tburnett@u.washington.edu>
+
+# $Header$
 use GlastPolicy *
 use ROOT * IExternal
 use CLHEP * IExternal
