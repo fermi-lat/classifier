@@ -73,6 +73,8 @@ public:
             @param use_weights  set true to interpret first column as a weight
         */
         static void setup( const std::vector<std::string>& names, bool use_weights);
+		static void setup(){s_size=0;
+		s_use_weights=false;}
         static const std::string & columnName(int i);
 
         /// identify the column to use for ordering
@@ -206,7 +208,7 @@ public:
 
         /// accept a Visitor object, call its visit method, pass on the children
 	 void accept(Visitor& v)const;
-	void accept(Classifier::Visitor& v);
+	 void accept(Classifier::Visitor& v);
  
         /** evaluate training error
         @param purity [0.5] threshold to use to classify signal or background

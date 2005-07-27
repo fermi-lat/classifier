@@ -26,8 +26,9 @@ public:
 
     /**  @brief ctor to get stuff from the folder
     @param filepath file path to files with input
+    @param rootfilepath path to prepend to root data files
     */
-    TrainingInfo(const std::string& filepath);
+    TrainingInfo(const std::string& filepath, const std::string& rootfilepath="");
 
     const std::string& title()const{return m_title;}
     const StringList& vars()const{return m_vars;}
@@ -50,6 +51,7 @@ private:
     StringList m_backgroundFiles;
     std::string m_log;
     std::string m_filepath;
+    std::string m_rootfilepath;
 };
 
 #endif

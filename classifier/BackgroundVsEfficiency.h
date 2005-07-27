@@ -52,7 +52,7 @@ public:
     */
     void print(std::ostream& log=std::cout);
 
-    /** The rms for the signal measurement for one event, assuming inormalized to total background
+    /** The rms for the signal measurement for one event, assuming normalized to total background
     */
     double sigma()const{return m_sigma;}
 
