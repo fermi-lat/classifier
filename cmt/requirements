@@ -1,6 +1,6 @@
 package classifier
 
-version v0
+version v1r0
 author T.Burnett <tburnett@u.washington.edu>
 use GlastPolicy *
 use ROOT * IExternal
