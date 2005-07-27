@@ -1,9 +1,10 @@
 /** @file release.notes
  @brief package classifier
 
-$Id: release.notes,v 1.2 2005/07/03 23:50:24 burnett Exp $
+$Id: release.notes,v 1.3 2005/07/27 15:35:43 burnett Exp $
 @verbatim
  
+ 27-jul-05  v1r1   improvements for GLAST
  27-jul-05  v1r0   replace with D0 version
  03-jul-05  v0r1p1 fix warnings 
  03-jul-05  v0     Initial checkin.
