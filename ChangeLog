@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Wed Jul 27 09:02:01 PDT 2005
+classifier/classifier
+
+Modified Files:
+	BackgroundVsEfficiency.h Classifier.h TrainingInfo.h 
+Log Message:
+enhancements useful for GLAST trainng
+    *
+------------------------------------------------------------
 TAG
 Tag name: v1r0, operation: add
 Package: classifier
