@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Thu Jul 28 13:22:17 PDT 2005
+classifier/src
+
+Modified Files:
+	Classifier.cpp 
+Log Message:
+protect against infinite loop possible with NaN input
+    *
+------------------------------------------------------------
 TAG
 Tag name: v1r1, operation: add
 Package: classifier
