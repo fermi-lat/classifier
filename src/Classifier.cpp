@@ -1,7 +1,7 @@
 /** @file Classifier.cpp
 @brief implementation of Classifier, Classifier::Node, Classifier::Record
 
-$Header: /cvsroot/d0cvs/classifier/src/Classifier.cpp,v 1.7 2005/03/22 22:58:40 yann Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/Classifier.cpp,v 1.1.1.1 2005/07/03 21:31:35 burnett Exp $
 */
 
 #include "classifier/Classifier.h"
@@ -18,6 +18,24 @@ int Classifier::Record::s_sort_column=0;
 int Classifier::Record::s_size=0;
 std::vector<std::string> Classifier::Record::s_column_names;
 bool Classifier::Record::s_use_weights=false;
+
+namespace {
+#ifdef WIN32
+#include <float.h> // used to check for NaN
+#else
+#include <cmath>
+#endif
+
+    bool isFinite(double val) {
+        using namespace std; // should allow either std::isfinite or ::isfinite
+#ifdef WIN32 
+        return (_finite(val)!=0);  // Win32 call available in float.h
+#else
+        return (isfinite(val)!=0); // gcc call available in math.h 
+#endif
+    }
+} // anom namespace
+
 
 int Classifier::Node::s_nodes=0;
 int Classifier::Node::s_leaves=0;
@@ -240,6 +258,9 @@ double Classifier::Node::minimize_gini()
     const Record& first = *(begin()+s/8);
     const Record& last =  *(end()-s/8);
     double a = first(), b=last(), range = b-a;
+    if( ! ::isFinite(range) ) {
+        throw std::runtime_error("Classifier::Node::minimize_gini: NaN found, quitting");
+    }
 
     if(range==0) return gini(a);
     double t = 1e9, u =a;
@@ -285,6 +306,7 @@ void Classifier::Node::split( bool recursive)
 
     double best=1e9, xbest;
     int ibest=-1;
+
 #ifdef verbose
     logstream() << "Splitting node " << id() 
         << "\n    index   improvement   at value" << std::endl;
@@ -370,6 +392,8 @@ void Classifier::setLogStream(std::ostream& log) { thelog = &log;}
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void Classifier::makeTree(bool recursive)
 {
+	std::cout << "Making tree..."
+			  << std::endl;
     m_root->split(recursive);
 }
 
