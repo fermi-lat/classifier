@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Fri Jul 29 17:08:03 PDT 2005
+classifier/src
+
+Modified Files:
+	Classifier.cpp 
+Log Message:
+pretty formatted variable rating table
+    *
+------------------------------------------------------------
 User: burnett  Fri Jul 29 17:07:16 PDT 2005
 classifier/src
 
