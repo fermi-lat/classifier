@@ -1,7 +1,7 @@
 /** @file RootTuple.cpp
 @brief implementation of RootTuple, RootTuple::Entry
 
-$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/RootTuple.cpp,v 1.1.1.1 2005/07/03 21:31:35 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/RootTuple.cpp,v 1.2 2005/07/28 20:38:20 burnett Exp $
 */
 #include "classifier/RootTuple.h"
 #include "TFile.h"
@@ -86,6 +86,14 @@ RootTuple::RootTuple(std::string root_file, std::string tree_name)
 RootTuple::RootTuple(std::vector<std::string> root_files, std::string tree_name)
 : m_total_size(0)
 {
+#ifdef WIN32 // ROOT work-around
+    static bool first=true;
+    if(first){ first=false;
+    int ret=gSystem->Load("libTree");
+    if( ret==1) TTree dummy;
+    }
+#endif
+
     std::vector<std::string>::iterator fit = root_files.begin(); 
     for(; fit!= root_files.end(); ++fit) add(*fit, tree_name);
 }
