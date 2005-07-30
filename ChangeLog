@@ -1,31 +1,4 @@
 ------------------------------------------------------------
-User: burnett  Fri Jul 29 17:08:56 PDT 2005
-classifier/src
-
-Modified Files:
-	BackgroundVsEfficiency.cpp 
-Log Message:
-convert to proper measure of sigma
-    *
-------------------------------------------------------------
-User: burnett  Fri Jul 29 17:08:03 PDT 2005
-classifier/src
-
-Modified Files:
-	Classifier.cpp 
-Log Message:
-pretty formatted variable rating table
-    *
-------------------------------------------------------------
-User: burnett  Fri Jul 29 17:07:16 PDT 2005
-classifier/src
-
-Modified Files:
-	RootTuple.cpp 
-Log Message:
-root loader problem work around for Windows
-    *
-------------------------------------------------------------
 TAG
 Tag name: v1r1p1, operation: add
 Package: classifier
