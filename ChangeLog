@@ -1,31 +1,4 @@
 ------------------------------------------------------------
-User: burnett  Thu Oct 20 07:22:45 PDT 2005
-classifier/src/test
-
-Modified Files:
-	Classifier_t.cpp 
-Log Message:
-fix minimum to be absolute; allow indirection for files and variable file lists
-    *
-------------------------------------------------------------
-User: burnett  Thu Oct 20 07:22:45 PDT 2005
-classifier/src
-
-Modified Files:
-	Classifier.cpp TrainingInfo.cpp 
-Log Message:
-fix minimum to be absolute; allow indirection for files and variable file lists
-    *
-------------------------------------------------------------
-User: burnett  Thu Oct 20 07:22:45 PDT 2005
-classifier/classifier
-
-Modified Files:
-	Classifier.h 
-Log Message:
-fix minimum to be absolute; allow indirection for files and variable file lists
-    *
-------------------------------------------------------------
 TAG
 Tag name: v1r1p2, operation: add
 Package: classifier
