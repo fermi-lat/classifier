@@ -1,7 +1,7 @@
 /** @file Classifier.cpp
 @brief implementation of Classifier, Classifier::Node, Classifier::Record
 
-$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/Classifier.cpp,v 1.2 2005/07/28 20:22:17 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/Classifier.cpp,v 1.3 2005/07/30 00:08:03 burnett Exp $
 */
 
 #include "classifier/Classifier.h"
@@ -13,7 +13,10 @@ $Header: /nfs/slac/g/glast/ground/cvs/classifier/src/Classifier.cpp,v 1.2 2005/0
 #include <vector>
 #include <stdexcept>
 #include <cmath>
+// this allows one to see details of the splits
 //#define verbose
+// this is an alternative that should always find the minimum
+#define absolute_minimum
 int Classifier::Record::s_sort_column=0;
 int Classifier::Record::s_size=0;
 std::vector<std::string> Classifier::Record::s_column_names;
@@ -255,6 +258,7 @@ double Classifier::Node::minimize_gini(double a, double b, int iteration)
 double Classifier::Node::minimize_gini()
 {
     int s = size();
+#ifndef absolute_minimum // old version
     const Record& first = *(begin()+s/8);
     const Record& last =  *(end()-s/8);
     double a = first(), b=last(), range = b-a;
@@ -272,6 +276,20 @@ double Classifier::Node::minimize_gini()
         }
     }
     return minimize_gini(u- range/8, u+range/8, 0);
+#else // new version
+    double  ming=1e9, xmin=1e9;
+    //std::ofstream gfile("gini.txt");
+    for( Table::iterator i=++begin(); i!=--end(); ++i){
+        double g = gini(*i);
+      //  gfile << (*i) << "\t" << g << std::endl;
+        if( g < ming){
+            xmin = *i; 
+            ming = g;
+        }
+    }
+    return xmin;
+
+#endif
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
