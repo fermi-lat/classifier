@@ -1,7 +1,7 @@
 /** @file TrainingInfo.cxx
     @brief implementaion of the class TrainingInfo
 
-    $Header: /cvsroot/d0cvs/classifier/src/TrainingInfo.cpp,v 1.5 2005/02/08 21:14:21 burnett Exp $
+    $Header: /nfs/slac/g/glast/ground/cvs/classifier/src/TrainingInfo.cpp,v 1.3 2005/07/27 16:02:01 burnett Exp $
 */
 #include "classifier/TrainingInfo.h"
 #include <fstream>
@@ -82,6 +82,14 @@ TrainingInfo::TrainingInfo( const std::string& title,  const std::string& varstr
         while( ! input.eof() ){
             input.getline(buf,sizeof(buf));
             if( buf[0]=='#' || buf[0]=='\0' ) continue;
+            if( buf[0]=='@'){
+                // indirection: expect first char to be @
+                std::stringstream str(buf+1);
+                std::string name;
+                str >> name;
+                readnames(name, output);
+                continue;
+            }
             std::stringstream str(buf);
             std::string name;
             str >> name;

@@ -1,7 +1,7 @@
 /** @file Classifier_t.cpp
     @brief test program
 
-    $Header: /cvsroot/d0cvs/classifier/test/Classifier_t.cpp,v 1.3 2005/03/28 14:53:02 burnett Exp $
+    $Header: /nfs/slac/g/glast/ground/cvs/classifier/src/test/Classifier_t.cpp,v 1.1.1.1 2005/07/03 21:31:35 burnett Exp $
 
     */
 
@@ -26,7 +26,7 @@
 class TestClassifier {
 public:
     TestClassifier()
-        :normal(HepRandom::getTheEngine())
+        :m_gaussian( new RandGauss(HepRandom::getTheEngine()) )
     {
         defineEvent();
 
@@ -108,8 +108,8 @@ public:
     {
         // create the data table
        for( int i = 0; i<1000; ++i){ 
-         m_data.push_back(Classifier::Record(true, event(normal.shoot(1.0, 1.0))));
-         m_data.push_back(Classifier::Record(false, event(normal.shoot(-1.0, 1.0))));
+         m_data.push_back(Classifier::Record(true, event(normal(1.0, 1.0))));
+         m_data.push_back(Classifier::Record(false, event(normal(-1.0, 1.0))));
        }
        m_data.normalize(0.5,0.5);
     }
@@ -122,9 +122,11 @@ public:
         return t;
     }
 private:
+    double normal(double mean, double sigma=1.0){return m_gaussian->shoot(mean, sigma);}
+
     Classifier::Table m_data;
     std::vector<std::string> m_names;
-    RandGauss normal;
+    RandGauss * m_gaussian;
 
 };
 
