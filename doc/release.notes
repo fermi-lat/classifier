@@ -1,9 +1,10 @@
 /** @file release.notes
  @brief package classifier
 
-$Id: release.notes,v 1.5 2005/07/28 20:39:57 burnett Exp $
+$Id: release.notes,v 1.6 2005/07/30 00:09:56 burnett Exp $
 @verbatim
  
+ 20-oct-05  v1r2   better minimization; indirection in variable and file files
  27-jul-05  v1r1p1,2 improvements for GLAST
  27-jul-05  v1r1   improvements for GLAST
  27-jul-05  v1r0   replace with D0 version
