@@ -1,7 +1,7 @@
 /** @file  AdaBoost.h
     @brief declaration of class AdaBoost
 
-    $Header: /cvsroot/d0cvs/classifier/classifier/AdaBoost.h,v 1.5 2005/03/22 23:10:36 yann Exp $
+    $Header: /nfs/slac/g/glast/ground/cvs/classifier/classifier/AdaBoost.h,v 1.1.1.1 2005/07/03 21:31:35 burnett Exp $
 
 */
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -24,9 +24,15 @@ public:
     Classifier::Table& data() {return m_data;};
     ~AdaBoost();
 
+    static inline void set_purity (double p)
+    {
+        s_purity = p;
+    }
+
 private:
     Classifier::Table& m_data;
     double m_beta;
+	static double s_purity;
 };
 #endif
 
