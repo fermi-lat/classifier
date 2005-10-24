@@ -1,7 +1,7 @@
 /** @file Classifier.h
     @brief declaration of the class Classsifier and various nested helper classes
 
-    $Header: /nfs/slac/g/glast/ground/cvs/classifier/classifier/Classifier.h,v 1.2 2005/07/27 16:02:01 burnett Exp $
+    $Header: /nfs/slac/g/glast/ground/cvs/classifier/classifier/Classifier.h,v 1.3 2005/10/20 14:22:45 burnett Exp $
 */
 
 #ifndef Classifier_h
@@ -220,6 +220,11 @@ public:
         // keep track of the total number of nodes, leaves
         static int s_nodes;
         static int s_leaves;
+
+        /// global to limit the gini improvement allowed, avoiding many insignificant cuts.
+        static double s_improvement_minimum;
+
+
     private:
         /// the id: 1 for root, 2*parent for left, 2*parent+1 for right
         int m_id;

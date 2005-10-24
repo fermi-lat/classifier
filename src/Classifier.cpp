@@ -1,7 +1,7 @@
 /** @file Classifier.cpp
 @brief implementation of Classifier, Classifier::Node, Classifier::Record
 
-$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/Classifier.cpp,v 1.3 2005/07/30 00:08:03 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/Classifier.cpp,v 1.4 2005/10/20 14:22:45 burnett Exp $
 */
 
 #include "classifier/Classifier.h"
@@ -42,6 +42,7 @@ namespace {
 
 int Classifier::Node::s_nodes=0;
 int Classifier::Node::s_leaves=0;
+double Classifier::Node::s_improvement_minimum=0;
 // select the criterion
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**  @class Gini  
@@ -334,22 +335,35 @@ void Classifier::Node::split( bool recursive)
         double x = minimize_gini();
         double gx = gini(x);
         if( gx < best) {xbest = x;  best= gx; ibest=n;}
-#ifdef verbose
+#ifdef veryverbose
         logstream() 
             << std::setw(10) << n
-            << std::setw(12) << std::setprecision(4) << gtot-gx
-            << std::setw(10) << x << std::endl;
+            << std::setw(12) << std::left << std::setprecision(4) << gtot-gx
+            << std::setw(10) << std::left << x << std::endl;
 #else
         gtot=gtot; // to avoid gcc warning
 #endif
     }
 
-    sort(ibest);
-    Table::iterator split_at = lower_bound(xbest);
+    double gtot=sort(ibest);
+#ifdef verbose
+        logstream() 
+            << std::setw(10) << ibest
+            << std::setw(12) << std::left << std::setprecision(4) << gtot-best
+            << std::setw(10) << std::left << xbest << std::endl;
+#endif
+     Table::iterator split_at = lower_bound(xbest);
 
     // if if either child is too small this is a leaf node
     int nleft = split_at-begin(), nright = end()-split_at;
     if( nleft< s_minsize || nright < s_minsize ) return;
+
+    // if the improvement is not above the threshold, also make it a leaf
+    static double starting_gtot=100;
+    if(this->id()==1){ // save iniital gtot for reference, since changes in boosting
+        starting_gtot = gtot;
+    }
+    if( gtot-best < s_improvement_minimum *starting_gtot ) return;
 
     m_left = new Node(begin(), split_at, 2*m_id);
     m_right = new Node(split_at, end(), 2*m_id+1);
@@ -473,7 +487,7 @@ void Classifier::printVariables(std::ostream& log)const
         rit!=rating_map.end(); ++rit )
     {
         log << std::setw(20)<< std::left  << rit->second
-            << std::setw(12)<< std::right << static_cast<int>(rit->first+0.5) << std::endl;
+            << std::setw(12)<< std::left  << rit->first << std::endl;
     }
 #endif
 } 
