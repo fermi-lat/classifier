@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Sun Oct 23 21:22:11 PDT 2005
+classifier/classifier
+
+Modified Files:
+	AdaBoost.h 
+Log Message:
+give access to boost parameter
+    *
+------------------------------------------------------------
 TAG
 Tag name: v1r2, operation: add
 Package: classifier
