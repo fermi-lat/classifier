@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Sun Oct 23 21:22:11 PDT 2005
+classifier/src
+
+Modified Files:
+	AdaBoost.cpp 
+Log Message:
+give access to boost parameter
+    *
+------------------------------------------------------------
+User: burnett  Sun Oct 23 21:22:11 PDT 2005
 classifier/classifier
 
 Modified Files:
