@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Sun Oct 23 21:24:17 PDT 2005
+classifier/classifier
+
+Modified Files:
+	Classifier.h 
+Log Message:
+allow limit on gini improvement for a node split
+    *
+------------------------------------------------------------
 User: burnett  Sun Oct 23 21:22:11 PDT 2005
 classifier/src
 
