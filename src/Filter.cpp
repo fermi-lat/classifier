@@ -2,11 +2,12 @@
 @brief implementation of the class Filter
 
 @author T.Burnett
-$Header: $
+$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/Filter.cpp,v 1.1 2005/10/29 17:30:13 burnett Exp $
 */
 
 #include "classifier/Filter.h"
 #include <algorithm>
+#include <stdexcept>
 
 
 Filter::Filter(std::vector<std::string>& vars, DecisionTree& tree)
