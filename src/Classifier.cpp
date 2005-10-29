@@ -1,7 +1,7 @@
 /** @file Classifier.cpp
 @brief implementation of Classifier, Classifier::Node, Classifier::Record
 
-$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/Classifier.cpp,v 1.4 2005/10/20 14:22:45 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/Classifier.cpp,v 1.5 2005/10/24 04:24:17 burnett Exp $
 */
 
 #include "classifier/Classifier.h"
@@ -99,7 +99,7 @@ Classifier::Record::Record( bool signal, const std::vector<float>& data)
     std::vector<float>::const_iterator id = data.begin();
     // if using weights, get it from the first column, Otherwise 1.0   
     double wt = s_use_weights ?  *id++: 1;
-   
+    
     m_sigwt = signal? wt : 0;
     m_bkgwt = signal? 0 : wt;
     int size = data.end()-id; // should be current size
@@ -137,7 +137,7 @@ void Classifier::Table::normalize(double signal, double background)
     }
 }
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Classifier::Node::Node(Table::iterator begin, Table::iterator end, int id)
+Classifier::Node::Node(Table::iterator begin, Table::iterator end, Identifier_t id)
 : m_id(id)
 , m_begin(begin)
 , m_end(end)
@@ -355,8 +355,12 @@ void Classifier::Node::split( bool recursive)
      Table::iterator split_at = lower_bound(xbest);
 
     // if if either child is too small this is a leaf node
+    // also can't go beyond 31 in depth with ints as ids, or 63 with long long
+    static int nbits(8*sizeof(Identifier_t)-1);
+    static Identifier_t maxint = (Identifier_t(1)<<nbits)-1; 
+
     int nleft = split_at-begin(), nright = end()-split_at;
-    if( nleft< s_minsize || nright < s_minsize ) return;
+    if( nleft< s_minsize || nright < s_minsize || m_id >= maxint ) return;
 
     // if the improvement is not above the threshold, also make it a leaf
     static double starting_gtot=100;

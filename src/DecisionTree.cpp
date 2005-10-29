@@ -2,32 +2,35 @@
 @brief implementation  of class DecisionTree
 
 @author T. Burnett
-$Header: /cvsroot/d0cvs/classifier/src/DecisionTree.cpp,v 1.9 2005/04/04 21:31:40 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/DecisionTree.cpp,v 1.1.1.1 2005/07/03 21:31:35 burnett Exp $
 
 */
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #include "classifier/DecisionTree.h"
 
 #include <stdexcept>
+#include <sstream>
+#include <cassert>
 
 DecisionTree::DecisionTree(std::string title)
-: m_title(title),m_lastWeight(0)
+: m_title(title)
 {
 }
 
 DecisionTree::DecisionTree(std::ifstream& input){
     // first line is the title
     if( ! input.is_open() ) throw std::invalid_argument("DecisionTree::DecisionTree: bad input file");
-    char buffer[80];
-    input.getline(buffer,sizeof(buffer));
-    m_title = std::string(buffer);
-    m_lastWeight = 0;
+    std::string buffer;
+    std::getline(input, buffer);
+    m_title = buffer;
+
     while( ! input.eof() ) {
-        int id, index; double value;
+        Identifier_t id;
+        int index; double value;
         input >> id >> index >> value;
-	if (id >= 0) {
-	  addNode(id, index, value);
-	}
+        if (id >= 0) {
+            addNode(id, index, value);
+        }
     }
 }
 //! @class DecisionTree::Node
@@ -41,7 +44,7 @@ public:
         delete m_left; delete m_right;
     }
     /// set a child, left or right depending on odd or even id
-    void setChild(int child_id, Node* child) 
+    void setChild(Identifier_t child_id, Node* child) 
     {
         if( (child_id & 1)!=0) m_right = child;
         else m_left = child;
@@ -73,33 +76,46 @@ private:
 DecisionTree::~DecisionTree()
 { 
 }
-double DecisionTree::operator()(const std::vector<float> row, int tree_count)const
+double DecisionTree::operator()(const std::vector<float>& row, int tree_count)const
 {
-  double weighted_sum=0, tree_wt=0;
-  if( tree_count==0) tree_count = m_rootlist.size();
-  std::vector<std::pair<double, Node*> >::const_iterator it= m_rootlist.begin();
-  for( ; it!=m_rootlist.end(); ++it){ 
-    weighted_sum += (*it).first * (*it).second->evaluate(row);
-    tree_wt += (*it).first;
-    if(tree_count-- ==0)  break;
-  }
-  return tree_wt != 0 ? weighted_sum/tree_wt : 0;
+    class FloatVector : public Values 
+    { public:
+    FloatVector(const std::vector<float>& row): m_row(row){}
+    double operator[](int index)const{return m_row[index];}
+    std::vector<float> m_row; // make a local copy
+    } vals(row);
+
+    return (*this)(vals);
 }
 double DecisionTree::operator ()(const Values& vals)const
 {
-  double weighted_sum=0, tree_wt=0;
-  std::vector<std::pair<double, Node*> >::const_iterator it= m_rootlist.begin();
-  for( ; it!=m_rootlist.end(); ++it){ 
-    weighted_sum += (*it).first * (*it).second->evaluate(vals);
-    tree_wt += (*it).first;
-  }
-  return tree_wt != 0 ? weighted_sum/tree_wt : 0;
+    double weighted_sum=0, sum_of_weights=0;
+    std::vector<std::pair<double, Node*> >::const_iterator it= m_rootlist.begin();
+    for( ; it!=m_rootlist.end(); ++it){ 
+        double 
+            weight = (*it).first, // weight associated with this tree
+            value = (*it).second->evaluate(vals); // get the value for input vars
+        if( weight <= 0. ){
+            // this is a filter: if zero result, just return
+            if( value == 0) return 0;
+            if( value != 1.0 ) {
+                throw std::runtime_error(
+                    "DecisionTree::operator(): processing a filter, expect only 0 or 1 leaf nodes");
+            }
+            continue; // otherwise go to next tree
+        }
+        // not a filter: continue
+        sum_of_weights += weight;
+        weighted_sum += weight * value;
+    }
+    // done with loop: note that if there were no trees, we accept.
+    return sum_of_weights != 0 ? weighted_sum/sum_of_weights : 1;
 }
 
-DecisionTree::Node* DecisionTree::find(unsigned int id)
+DecisionTree::Node* DecisionTree::find(Identifier_t id)
 {
-    static int nbits=32;
-    static unsigned int hibit=(1<<(nbits-1));
+    static int nbits=8*sizeof(Identifier_t);
+    static Identifier_t hibit=(Identifier_t(1)<<(nbits-1));
     Node* node = m_rootlist.back().second; // get the node with tree weight
     if( id==0) return node;
     node = node->right();  // get the first actual node 
@@ -111,51 +127,64 @@ DecisionTree::Node* DecisionTree::find(unsigned int id)
         if( (id & hibit)!=0 ) node=node->right();
         else  node=node->left();
         if( node==0) {
-            throw std::runtime_error("DecisionTree::find - node not found");
+            std::stringstream buf;
+            buf <<"DecisionTree::find - node "<< id << " not found";
+            throw std::runtime_error(buf.str());
         }
     }
     return node;
 }
 
-void DecisionTree::addNode(unsigned int id, int index, double value)
+void DecisionTree::addNode(Identifier_t id, int index, double value)
 {
-  Node * child = new Node(index, value);
-  if ( id==0 ) { // create the node with tree weight
-    m_lastWeight = value;
-    m_rootlist.push_back(std::make_pair(value,child));
-  } else if( id==1) { // create the node with first data
-    if (m_lastWeight == 0) { // backward compatibility (read single tree files)
-      Node * orig = new Node(-10, 1);
-      orig->setChild(id,child);
-      m_rootlist.push_back(std::make_pair(1,orig));
-    } else { // set the first node as right child to node 0 for multiple trees
-      std::pair<double, Node*> id0pair = m_rootlist.back();
-      (id0pair.second)->setChild(id,child);
+    Node * child = new Node(index, value);
+    if ( id==0 ) { 
+
+        // create the node with tree weight
+        m_rootlist.push_back(std::make_pair(value,child));
+
+    } else if( id==1) { 
+
+        // create the node with first data
+        if ( m_rootlist.size() == 0) { 
+
+            // backward compatibility: force a tree node if first node added
+            // is a root.
+            Node * orig = new Node(-10, 1);
+            orig->setChild(id,child);
+            m_rootlist.push_back(std::make_pair(1,orig));
+
+        } else { 
+
+            // set the first node as right child to node 0 for multiple trees
+            std::pair<double, Node*> id0pair = m_rootlist.back();
+            (id0pair.second)->setChild(id,child);
+        }
+    } else {
+        Node* parent = find(id/2);
+        parent->setChild(id,child);
     }
-  } else {
-    Node* parent = find(id/2);
-    parent->setChild(id,child);
-  }
 }
 
-void DecisionTree::addTree(DecisionTree * tree)
+void DecisionTree::addTree(const DecisionTree * tree)
 {
-  if( m_title != tree->title()) {
-    throw std::runtime_error("DecisionTree::addTree - merging trees of different flavours");
-  } else {
-    m_rootlist.insert(m_rootlist.end(),tree->m_rootlist.begin(),tree->m_rootlist.end());
-  }
+    if( m_title != tree->title()) {
+        throw std::runtime_error("DecisionTree::addTree - merging trees of different flavours");
+    } else {
+        m_rootlist.insert(m_rootlist.end(),tree->m_rootlist.begin(),tree->m_rootlist.end());
+    }
 }
 
-void DecisionTree::printNode(std::ostream& out , const DecisionTree::Node * node, unsigned int id)const
+void DecisionTree::printNode(std::ostream& out , const DecisionTree::Node * node, Identifier_t id)const
 {
+    assert (node!=0); // baad logic!
     out << "\t"<< id << "\t" << node->index() <<"\t" << node->value() << std::endl;
     if( node-> isLeaf()) return;
     // special treatment for node 0, with no left child
     if( node-> isWeight()) printNode(out,node->right(),1);
     else {
-      printNode(out,node->left(), 2*id);
-      printNode(out,node->right(), 2*id+1);
+        printNode(out,node->left(), 2*id);
+        printNode(out,node->right(), 2*id+1);
     }
 }
 void DecisionTree::print(std::ostream& out)const
@@ -163,6 +192,6 @@ void DecisionTree::print(std::ostream& out)const
     out << m_title << std::endl;
     std::vector<std::pair<double, Node*> >::const_iterator it= m_rootlist.begin();
     for( ; it!=m_rootlist.end(); ++it){ 
-      printNode(out, (*it).second,0);
+        printNode(out, (*it).second,0);
     }
 }
