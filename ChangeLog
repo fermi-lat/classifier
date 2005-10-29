@@ -1,4 +1,16 @@
 ------------------------------------------------------------
+User: burnett  Sat Oct 29 10:30:12 PDT 2005
+classifier/classifier
+
+Modified Files:
+	Classifier.h DecisionTree.h 
+Added Files:
+	Filter.h 
+Log Message:
+Add filter capability 
+allow up to 63 node depth.
+    *
+------------------------------------------------------------
 TAG
 Tag name: v1r3, operation: add
 Package: classifier
