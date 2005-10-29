@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Sat Oct 29 13:16:35 PDT 2005
+classifier/src
+
+Modified Files:
+	Filter.cpp 
+Log Message:
+unix patch
+    *
+------------------------------------------------------------
+User: burnett  Sat Oct 29 13:16:35 PDT 2005
 classifier/doc
 
 Modified Files:
