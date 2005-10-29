@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Sat Oct 29 13:16:35 PDT 2005
+classifier/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+unix patch
+    *
+------------------------------------------------------------
 TAG
 Tag name: v1r4, operation: add
 Package: classifier
