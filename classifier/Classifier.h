@@ -1,7 +1,7 @@
 /** @file Classifier.h
     @brief declaration of the class Classsifier and various nested helper classes
 
-    $Header: /nfs/slac/g/glast/ground/cvs/classifier/classifier/Classifier.h,v 1.3 2005/10/20 14:22:45 burnett Exp $
+    $Header: /nfs/slac/g/glast/ground/cvs/classifier/classifier/Classifier.h,v 1.4 2005/10/24 04:24:17 burnett Exp $
 */
 
 #ifndef Classifier_h
@@ -142,6 +142,8 @@ public:
     
     class Node {
     public:
+        typedef long long Identifier_t; // 64 bits gives us depth of 63
+
     /**  create a Node from Table iterators
         @param begin beginning of range of Table entries
         @param end   end of range
@@ -150,7 +152,7 @@ public:
         A particular element of the Record sequence is expected to be used for sorting and 
         optimizing. It is set by the sort() function
     */
-        Node(Table::iterator begin, Table::iterator end, int id=1);
+        Node(Table::iterator begin, Table::iterator end, Identifier_t id=1);
 
         ~Node();
 
@@ -200,7 +202,7 @@ public:
         int index()const{return m_split_index;}
         double total_gini()const{return m_gini;}
         double split_gini()const{return m_left==0? m_gini: m_left->total_gini() + m_right->total_gini();}
-        int id() const {return m_id;}
+        Identifier_t id() const {return m_id;}
 
         double purity()const { return m_signal/(m_signal + m_background);}
         double value()const { return m_split_value;}
@@ -227,7 +229,7 @@ public:
 
     private:
         /// the id: 1 for root, 2*parent for left, 2*parent+1 for right
-        int m_id;
+        Identifier_t m_id;
         Classifier::Table::iterator m_begin;
         Classifier::Table::iterator m_end;
         /// variable index for the split
@@ -252,7 +254,7 @@ public:
        const std::vector<std::string>& names, bool event_weights=false);
     ~Classifier();
 
-    /** create a classification tree from the daata
+    /** create a classification tree from the data
     @param recursive [true] allow to only make a top-level split if false
     */
     void makeTree(bool recursive=true);
@@ -284,7 +286,7 @@ public:
     /// Return the error for the model, defined as the 
     double error(const Classifier::Table& data, double purity=0.5)const;
 
-    /// create a simplified decision tree
+    /// create a  decision tree from the tree created by training.
     DecisionTree* createTree(std::string title="Decision Tree", double weight=1.);
 #if 0
     static  Classifier::SplitCriterion Classifier::splitCriterion; 
@@ -293,11 +295,9 @@ public:
      */
     static void setLogStream(std::ostream& log) ;
 private:
-#if 1
     /// access to the root node
     Node& root() { return *m_root; }
     const Node& root()const { return *m_root; }
-#endif
 
     Node* m_root;
 };

@@ -1,7 +1,7 @@
 /** @file Classifier_t.cpp
     @brief test program
 
-    $Header: /nfs/slac/g/glast/ground/cvs/classifier/src/test/Classifier_t.cpp,v 1.1.1.1 2005/07/03 21:31:35 burnett Exp $
+    $Header: /nfs/slac/g/glast/ground/cvs/classifier/src/test/Classifier_t.cpp,v 1.2 2005/10/20 14:22:45 burnett Exp $
 
     */
 
@@ -9,6 +9,7 @@
 #include "classifier/BackgroundVsEfficiency.h"
 #include "classifier/AdaBoost.h"
 #include "classifier/DecisionTree.h"
+#include "classifier/Filter.h"
 
 #include "CLHEP/Random/RandGauss.h"
 
@@ -94,6 +95,10 @@ public:
        DecisionTree fromfile(fileinput);
        std::cout << "read back the tree " << fromfile.title() << std::endl;
        fromfile.print();
+
+       // test creating and using a filter
+
+       testFilter(fromfile);
     }
     void defineEvent()
     {
@@ -112,6 +117,70 @@ public:
          m_data.push_back(Classifier::Record(false, event(normal(-1.0, 1.0))));
        }
        m_data.normalize(0.5,0.5);
+    }
+
+    void testFilter(const DecisionTree & oldtree)
+    {
+        std::string testfile("filter.txt");
+
+        std::cout << "\nTesting a filter...\n";
+        // set up a little test file
+        std::ofstream ftext(testfile.c_str());
+        ftext << "# a test filter\n";
+        ftext << "y < 1 " << std::endl;
+        ftext << "y >= -1" << std::endl;
+        ftext.close();
+
+
+        std::ifstream iftext(testfile.c_str());
+
+        DecisionTree& ftree= *new DecisionTree("test_classifier"); // make a new tree
+        
+        Filter f(m_names, ftree);
+        f.makeTree(iftext);
+
+        std::cout << "print of the test tree"<< std::endl;
+
+        ftree.print();
+
+        // does it work? These should be 0 or 1.
+        double t[] = 
+        { 
+            ftree(event(0,0) ),
+            ftree(event(0,0.99)),
+            ftree(event(0,1.01)),
+            ftree(event(0,-1.01))
+        };
+        double expect[]={1,1,0,0};
+
+        for( int i = 0; i<4; ++i){
+            if( t[i]!= expect[i]) {
+                std::cout << "expected " << expect[i]<<", found "<<t[i]<<std::endl;
+                throw("Fail filter test");
+            }
+        }
+        // now append the classification tree
+        ftree.addTree(&oldtree);
+
+        // and test again.
+        double t2[] ={
+             ftree(event(0,0) ),
+             ftree(event(0,0.99) ),
+             ftree(event(0,1.01) ),
+             ftree(event(0,-1.01) )
+        };
+        
+        double v0 = oldtree(event(0,0)); // from the old tree at 0,0
+        for( int i = 0; i<4; ++i){
+            if( t2[i]!= expect[i]*v0) {
+                std::cout << "expected " << (expect[i]*v0) 
+                    <<", found "<<t2[i]<<std::endl;
+                throw("Fail filter test");
+            }
+        }
+
+        std::cout << "Filter OK!" << std::endl;
+
     }
 
     /// return an event
