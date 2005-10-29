@@ -1,4 +1,16 @@
 ------------------------------------------------------------
+User: burnett  Sat Oct 29 10:30:13 PDT 2005
+classifier/src
+
+Modified Files:
+	Classifier.cpp DecisionTree.cpp 
+Added Files:
+	Filter.cpp 
+Log Message:
+Add filter capability 
+allow up to 63 node depth.
+    *
+------------------------------------------------------------
 User: burnett  Sat Oct 29 10:30:12 PDT 2005
 classifier/classifier
 
