@@ -1,6 +1,6 @@
 package classifier
 
-version v1r4p2
+version v1r5
 author T.Burnett <tburnett@u.washington.edu>
 
 # $Header: /nfs/slac/g/glast/ground/cvs/classifier/cmt/requirements,v 1.9 2005/10/29 20:16:35 burnett Exp $
