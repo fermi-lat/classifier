@@ -2,41 +2,54 @@
 @brief implementation of the class Filter
 
 @author T.Burnett
-$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/Filter.cpp,v 1.1 2005/10/29 17:30:13 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/Filter.cpp,v 1.2 2005/10/29 20:16:35 burnett Exp $
 */
 
 #include "classifier/Filter.h"
 #include <algorithm>
 #include <stdexcept>
+#include <sstream>
 
 
 Filter::Filter(std::vector<std::string>& vars, DecisionTree& tree)
 : m_vars(vars)
 , m_tree(tree)
-, m_id(1)
+, m_id(0)
 {}
 
+Filter::~Filter()
+{
+    finish();
+}
 void Filter::makeTree(std::ifstream& input)
 {
     if( ! input.is_open() ) throw std::invalid_argument("Filter::makeTree: bad input file");
 
-    m_tree.addNode(0, -10, 0.);  //the tree node, flagged with zero weight
-
     while( ! input.eof() ) {
-        std::string buffer;
-        std::getline(input, buffer);
+        std::string line;
+        std::getline(input, line);
+        if( line.empty() || line[0]=='#') continue; // ignore, a comment
         std::string name, op;
         double value;
-        input >> name >> op >> value;
-        if( name.empty() || name[0]=='#') continue; // ignore, a comment
+        std::stringstream(line) >> name >> op >> value;
         addCut(name, op, value);
     }
-    m_tree.addNode(m_id, -1, 1.0); // final node
+    finish();
 }
 
+void Filter::finish()
+{
+    if( m_id>0) m_tree.addNode(m_id, -1, 1.0); // final node
+    m_id=-1; // flag
+}
 
 void Filter::addCut(std::string name, std::string op, double value)
 {
+    if( m_id==0 ) {
+        // this is the root node: need a tree node
+        m_tree.addNode(0, -10, 0.);  //the tree node, flagged as such by zero weight
+        m_id = 1; 
+    }
     int left = 0, index=-1;
     if( op == ">=" ){
         left =0;
@@ -54,8 +67,9 @@ void Filter::addCut(std::string name, std::string op, double value)
 int Filter::find_index(const std::string& name)
 {
     std::vector<std::string>::iterator test = std::find(m_vars.begin(),m_vars.end(), name);
+    int index = test-m_vars.begin();
     if( test== m_vars.end()){
         m_vars.push_back(name);
     }
-    return test-m_vars.begin();
+    return index;
 }

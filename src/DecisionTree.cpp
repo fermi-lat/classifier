@@ -2,7 +2,7 @@
 @brief implementation  of class DecisionTree
 
 @author T. Burnett
-$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/DecisionTree.cpp,v 1.1.1.1 2005/07/03 21:31:35 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/DecisionTree.cpp,v 1.2 2005/10/29 17:30:13 burnett Exp $
 
 */
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -39,7 +39,9 @@ class DecisionTree::Node {
 public:
     Node(int index, double value)
         :m_index(index), m_value(value), m_left(0), m_right(0)
-    {}
+    {
+        assert(index>=-10 && index<100); // check for bad logic
+    }
     ~Node(){ 
         delete m_left; delete m_right;
     }
