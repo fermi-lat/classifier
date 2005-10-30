@@ -2,14 +2,14 @@
 @brief declaration of the class Filter
 
 @author T.Burnett
-$Header: /nfs/slac/g/glast/ground/cvs/classifier/classifier/Filter.h,v 1.1 2005/10/29 17:30:11 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/classifier/classifier/Filter.h,v 1.2 2005/10/30 01:26:55 burnett Exp $
 */
 #ifndef classifier_Filter_h
 #define classifier_Filter_h
 
 #include <string>
 #include <vector>
-#include <fstream>
+#include <ostream>
 
 #include "classifier/DecisionTree.h"
 
@@ -30,18 +30,20 @@ public:
 
     ~Filter();
 
-    /** @brief create the filter tree from the file
-
-    */
-    void makeTree(std::ifstream& input);
-
+ 
     /// append a new cut
     /// @param name variable name: will be appended to the vars if not there
     /// @param op one of "<", or ">=". 
     void addCut(std::string name, std::string op, double value);
 
+    /// add cuts from the file
+    void addCutsFrom(const std::string& filename);
+
     /// optional finisher
-    void finish();
+    void close();
+
+    /// dump
+    void print(std::ostream& out)const;
 
 private:
 

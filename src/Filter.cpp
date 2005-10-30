@@ -2,13 +2,14 @@
 @brief implementation of the class Filter
 
 @author T.Burnett
-$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/Filter.cpp,v 1.2 2005/10/29 20:16:35 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/Filter.cpp,v 1.3 2005/10/30 01:26:55 burnett Exp $
 */
 
 #include "classifier/Filter.h"
 #include <algorithm>
 #include <stdexcept>
 #include <sstream>
+#include <fstream>
 
 
 Filter::Filter(std::vector<std::string>& vars, DecisionTree& tree)
@@ -19,25 +20,33 @@ Filter::Filter(std::vector<std::string>& vars, DecisionTree& tree)
 
 Filter::~Filter()
 {
-    finish();
+    close();
 }
-void Filter::makeTree(std::ifstream& input)
+
+void Filter::addCutsFrom(const std::string& filename)
 {
-    if( ! input.is_open() ) throw std::invalid_argument("Filter::makeTree: bad input file");
+    std::ifstream input(filename.c_str());
+    if( ! input.is_open() ) throw std::invalid_argument("Filter::addCutsFrom: cannot open file "+filename);
 
     while( ! input.eof() ) {
         std::string line;
         std::getline(input, line);
         if( line.empty() || line[0]=='#') continue; // ignore, a comment
+        if( line[0] == '@' ) { // indirection
+            int pos = filename.find_last_of("/");
+            std::string newfile(filename.substr(0,pos+1)+line.substr(1));
+            addCutsFrom( newfile );
+            continue;
+        }
         std::string name, op;
         double value;
-        std::stringstream(line) >> name >> op >> value;
+        std::stringstream s(line);
+        s >> name >> op >> value;
         addCut(name, op, value);
     }
-    finish();
 }
 
-void Filter::finish()
+void Filter::close()
 {
     if( m_id>0) m_tree.addNode(m_id, -1, 1.0); // final node
     m_id=-1; // flag
@@ -72,4 +81,10 @@ int Filter::find_index(const std::string& name)
         m_vars.push_back(name);
     }
     return index;
+}
+
+void Filter::print(std::ostream& out)const
+{
+   m_tree.printFilter( m_vars, out);
+
 }
