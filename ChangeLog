@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Sun Oct 30 15:31:02 PST 2005
+classifier/src
+
+Modified Files:
+	DecisionTree.cpp 
+Log Message:
+add pretty print for filter; remove redundant "weight" node (not my original code.)
+    *
+------------------------------------------------------------
+User: burnett  Sun Oct 30 15:31:02 PST 2005
 classifier/classifier
 
 Modified Files:
