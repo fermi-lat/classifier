@@ -2,7 +2,7 @@
 @brief implementation  of class DecisionTree
 
 @author T. Burnett
-$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/DecisionTree.cpp,v 1.2 2005/10/29 17:30:13 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/DecisionTree.cpp,v 1.3 2005/10/30 01:26:55 burnett Exp $
 
 */
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -57,14 +57,11 @@ public:
     {
         //std::cerr << (m_index>=0? values[m_index]: -1) << "< " << m_value << std::endl;
         if( isLeaf() ) return m_value;
-        if( isWeight() ) return m_right->evaluate(values);
         return values[m_index]<m_value
             ? m_left->evaluate(values)
             : m_right->evaluate(values) ;
     }
     bool isLeaf()const{return m_index == -1;}
-    bool isWeight()const{return m_index == -10;}
-
     Node* left()const{return m_left;}
     Node* right()const{return m_right;}
     int index()const{return m_index;}
@@ -119,8 +116,7 @@ DecisionTree::Node* DecisionTree::find(Identifier_t id)
     static int nbits=8*sizeof(Identifier_t);
     static Identifier_t hibit=(Identifier_t(1)<<(nbits-1));
     Node* node = m_rootlist.back().second; // get the node with tree weight
-    if( id==0) return node;
-    node = node->right();  // get the first actual node 
+    assert(id>0);
     if( id==1) return node;
     int depth=nbits;
     while( (id & hibit) ==0) {id= id << 1; --depth;}
@@ -141,27 +137,20 @@ void DecisionTree::addNode(Identifier_t id, int index, double value)
 {
     Node * child = new Node(index, value);
     if ( id==0 ) { 
-
-        // create the node with tree weight
-        m_rootlist.push_back(std::make_pair(value,child));
+        // starting new tree: expect next call do have id = 1
+        delete child;
+        m_rootlist.push_back(std::make_pair(value, (Node*)0));
 
     } else if( id==1) { 
 
         // create the node with first data
         if ( m_rootlist.size() == 0) { 
-
-            // backward compatibility: force a tree node if first node added
+            // start a tree if first node added
             // is a root.
-            Node * orig = new Node(-10, 1);
-            orig->setChild(id,child);
-            m_rootlist.push_back(std::make_pair(1,orig));
-
-        } else { 
-
-            // set the first node as right child to node 0 for multiple trees
-            std::pair<double, Node*> id0pair = m_rootlist.back();
-            (id0pair.second)->setChild(id,child);
-        }
+            addNode(0,0,1.0);
+        } 
+        m_rootlist.back().second = child;
+        
     } else {
         Node* parent = find(id/2);
         parent->setChild(id,child);
@@ -182,18 +171,40 @@ void DecisionTree::printNode(std::ostream& out , const DecisionTree::Node * node
     assert (node!=0); // baad logic!
     out << "\t"<< id << "\t" << node->index() <<"\t" << node->value() << std::endl;
     if( node-> isLeaf()) return;
-    // special treatment for node 0, with no left child
-    if( node-> isWeight()) printNode(out,node->right(),1);
-    else {
-        printNode(out,node->left(), 2*id);
-        printNode(out,node->right(), 2*id+1);
-    }
+    printNode(out,node->left(), 2*id);
+    printNode(out,node->right(), 2*id+1);
+
 }
 void DecisionTree::print(std::ostream& out)const
 {
     out << m_title << std::endl;
     std::vector<std::pair<double, Node*> >::const_iterator it= m_rootlist.begin();
     for( ; it!=m_rootlist.end(); ++it){ 
-        printNode(out, (*it).second,0);
+        // first line identifies start of tree: not an actual "node"
+        out << "\t0\t-10\t" << (*it).first << std::endl;
+        // now do the tree, root node has id 1.
+        printNode(out, (*it).second, 1);
     }
 }
+
+void DecisionTree::printFilter(const std::vector<std::string>& varnames, std::ostream& out, std::string indent)const
+{
+    std::vector<std::pair<double, Node*> >::const_iterator it= m_rootlist.begin();
+    Node* node = it->second;
+
+    while(1){
+        if( node==0 || node->isLeaf() ) break;
+        out<< indent << varnames[node->index()] ;
+        Node * next;
+        if(     node->left() !=0 &&  node->left()->isLeaf() ) { out << " >= "; next = node->right();
+        }else if(node->right() !=0 && node->right()->isLeaf()) { out << " < ";  next = node->left();
+        }else { 
+            out << "\n------------- not a filter: quitting\n";
+            break;
+        }
+        out << node->value() << std::endl;
+        node = next;
+    }
+}
+
+
