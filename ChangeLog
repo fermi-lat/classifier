@@ -1,22 +1,4 @@
 ------------------------------------------------------------
-User: burnett  Sat Oct 29 18:26:55 PDT 2005
-classifier/src
-
-Modified Files:
-	DecisionTree.cpp Filter.cpp 
-Log Message:
-fix wrong logic for reading a filter file, add some protection.
-    *
-------------------------------------------------------------
-User: burnett  Sat Oct 29 18:26:55 PDT 2005
-classifier/classifier
-
-Modified Files:
-	Filter.h 
-Log Message:
-fix wrong logic for reading a filter file, add some protection.
-    *
-------------------------------------------------------------
 TAG
 Tag name: v1r4p1, operation: add
 Package: classifier
