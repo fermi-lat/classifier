@@ -1,10 +1,10 @@
 /** @file release.notes
  @brief package classifier
 
-$Id: release.notes,v 1.9 2005/10/29 17:32:57 burnett Exp $
+$Id: release.notes,v 1.10 2005/10/29 20:16:35 burnett Exp $
 @verbatim
  
- 29-oct-05  v1r4,p1   allow filter tree 
+ 29-oct-05  v1r4,p1,p2   allow filter tree 
  23-oct-05  v1r3   gini improvement limit
  20-oct-05  v1r2   better minimization; indirection in variable and file files
  27-jul-05  v1r1p1,2 improvements for GLAST
