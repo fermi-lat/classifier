@@ -1,4 +1,15 @@
 ------------------------------------------------------------
+User: usher  Fri Nov  4 15:17:01 PST 2005
+classifier/classifier
+
+Modified Files:
+	DecisionTree.h 
+Added Files:
+	DecisionTreeBuilder.h ImSheetBuilder.h 
+Log Message:
+Initial import of code to read, parse and create Decision Trees from Insightful Miner output files. Initial import == a bit fragile at the moment (sorry!)
+    *
+------------------------------------------------------------
 TAG
 Tag name: v1r5p1, operation: add
 Package: classifier
