@@ -1,7 +1,7 @@
 /** @file Classifier_t.cpp
     @brief test program
 
-    $Header: /nfs/slac/g/glast/ground/cvs/classifier/src/test/Classifier_t.cpp,v 1.2 2005/10/20 14:22:45 burnett Exp $
+    $Header: /nfs/slac/g/glast/ground/cvs/classifier/src/test/Classifier_t.cpp,v 1.3 2005/10/29 17:30:13 burnett Exp $
 
     */
 
@@ -131,13 +131,11 @@ public:
         ftext << "y >= -1" << std::endl;
         ftext.close();
 
-
-        std::ifstream iftext(testfile.c_str());
-
         DecisionTree& ftree= *new DecisionTree("test_classifier"); // make a new tree
         
         Filter f(m_names, ftree);
-        f.makeTree(iftext);
+        f.addCutsFrom(testfile);
+        f.close();
 
         std::cout << "print of the test tree"<< std::endl;
 
