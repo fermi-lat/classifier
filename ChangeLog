@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Fri Nov  4 09:46:17 PST 2005
+classifier/src
+
+Modified Files:
+	Filter.cpp 
+Log Message:
+Fix warnings, error in test program.
+    *
+------------------------------------------------------------
 TAG
 Tag name: v1r5, operation: add
 Package: classifier
