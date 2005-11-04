@@ -1,5 +1,16 @@
 ------------------------------------------------------------
 User: usher  Fri Nov  4 15:17:01 PST 2005
+classifier/src
+
+Modified Files:
+	DecisionTree.cpp 
+Added Files:
+	DecisionTreeBuilder.cxx ImSheetBuilder.cxx 
+Log Message:
+Initial import of code to read, parse and create Decision Trees from Insightful Miner output files. Initial import == a bit fragile at the moment (sorry!)
+    *
+------------------------------------------------------------
+User: usher  Fri Nov  4 15:17:01 PST 2005
 classifier/cmt
 
 Modified Files:
