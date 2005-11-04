@@ -2,7 +2,7 @@
     @brief declaration of class DecisionTree
 
     @author T. Burnett
-    $Header: /nfs/slac/g/glast/ground/cvs/classifier/classifier/DecisionTree.h,v 1.3 2005/10/29 17:30:11 burnett Exp $
+    $Header: /nfs/slac/g/glast/ground/cvs/classifier/classifier/DecisionTree.h,v 1.4 2005/10/30 23:31:02 burnett Exp $
 
 */
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -28,6 +28,7 @@ the subsequent trees.
 
 
 */
+
 class DecisionTree {
 public:
     typedef long long Identifier_t;
@@ -64,9 +65,10 @@ public:
     @param row
     @param tree_count [0] if nonzero, maximum trees to evaluate
     */
-    double operator()(const std::vector<float>& row, int tree_count=0)const;
+    double operator()(const std::vector<float>& row, int tree_count=0) const;
 
-    double operator()(const Values& vals)const;
+    double operator()(const Values& vals) const;
+
     ~DecisionTree();
 
     
