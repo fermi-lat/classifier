@@ -2,7 +2,7 @@
 @brief implementation of the class Filter
 
 @author T.Burnett
-$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/Filter.cpp,v 1.3 2005/10/30 01:26:55 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/Filter.cpp,v 1.4 2005/10/30 23:29:34 burnett Exp $
 */
 
 #include "classifier/Filter.h"
@@ -59,7 +59,7 @@ void Filter::addCut(std::string name, std::string op, double value)
         m_tree.addNode(0, -10, 0.);  //the tree node, flagged as such by zero weight
         m_id = 1; 
     }
-    int left = 0, index=-1;
+    int left = 0;
     if( op == ">=" ){
         left =0;
     }else if( op=="<") {
