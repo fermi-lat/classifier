@@ -1,7 +1,7 @@
 /** @file BackgroundVsEfficiency.cpp
 @brief implementation of class BackgroundVsEfficiency
 
-$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/BackgroundVsEfficiency.cpp,v 1.1.1.1 2005/07/03 21:31:35 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/BackgroundVsEfficiency.cpp,v 1.2 2005/07/30 00:08:56 burnett Exp $
 */
 
 
@@ -92,10 +92,12 @@ double BackgroundVsEfficiency::operator()(double efficiency_cut ) const
 }
 
 
-void BackgroundVsEfficiency::print(std::ostream& log){
+void BackgroundVsEfficiency::print(std::ostream& log, std::string label){
     if(!m_setup) setup();
 
-    log << "Purity map" << std::endl;
+    log << "Purity map ";
+    if(  !label.empty() ) log << label;
+    log << std::endl;
     log << "purity\tweight\teff\tcum_bkg\n";
     log << "0\t0\t1\t" <<1.0 << std::endl;
     MapPair::const_iterator m = m_probmap.begin();
