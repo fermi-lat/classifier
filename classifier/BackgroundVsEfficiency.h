@@ -1,7 +1,7 @@
 /** @file BackgroundVsEfficiency.h
 @brief declaration of the class BackgroundVsEfficiency
 
-$Header: /cvsroot/d0cvs/classifier/classifier/BackgroundVsEfficiency.h,v 1.6 2005/04/04 21:30:09 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/classifier/classifier/BackgroundVsEfficiency.h,v 1.2 2005/07/27 16:02:01 burnett Exp $
 */
 
 #ifndef BackgroundVsEfficiency_h
@@ -49,8 +49,10 @@ public:
     double operator()(double efficiency_cut) const;
 
     /** @brief print the table to the stream
+    @param log the stream
+    @parem label text to use to identify the source of the data
     */
-    void print(std::ostream& log=std::cout);
+    void print(std::ostream& log=std::cout, std::string label="");
 
     /** The rms for the signal measurement for one event, assuming normalized to total background
     */
