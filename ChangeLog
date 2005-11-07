@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: usher  Mon Nov  7 13:48:58 PST 2005
+classifier/classifier
+
+Removed Files:
+	DecisionTreeBuilder.h ImSheetBuilder.h 
+Log Message:
+Removing connection to IM and moving to GlastClassify
+    *
+------------------------------------------------------------
 TAG
 Tag name: v1r5p2, operation: add
 Package: classifier
