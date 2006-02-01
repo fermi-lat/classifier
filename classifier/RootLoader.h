@@ -1,7 +1,7 @@
 /** @file  RootLoader.h
     @brief declaration of class RootLoader
 
-    $Header: /cvsroot/d0cvs/classifier/classifier/RootLoader.h,v 1.5 2005/03/28 14:42:16 burnett Exp $
+    $Header: /nfs/slac/g/glast/ground/cvs/classifier/classifier/RootLoader.h,v 1.1.1.1 2005/07/03 21:31:35 burnett Exp $
 */
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #ifndef RootLoader_h
@@ -9,7 +9,7 @@
 
 #include "Classifier.h"
 #include <iostream>
-class RandFlat;
+namespace CLHEP {class RandFlat;}
 
 /** @class RootLoader
     @brief subclass of Classifier::LoadData to load from a set of ROOT files 
@@ -47,7 +47,7 @@ private:
     bool m_use_weights;
     double m_signal_total;
     double m_bkgnd_total;
-    RandFlat* m_rand;
+    CLHEP::RandFlat* m_rand;
 };
 
 #endif
