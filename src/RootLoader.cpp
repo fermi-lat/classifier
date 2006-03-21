@@ -1,7 +1,7 @@
 /** @file  RootLoader.cpp
 @brief implementation  of class RootLoader
 
-$Header: /cvsroot/d0cvs/classifier/src/RootLoader.cpp,v 1.5 2005/03/28 14:42:16 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/RootLoader.cpp,v 1.1.1.1 2005/07/03 21:31:35 burnett Exp $
 
 */
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -23,7 +23,7 @@ RootLoader::RootLoader(
                        , m_background_files(background_files)
                        , m_names(names)
                        , m_use_weights(use_weights)
-                       , m_rand(new RandFlat(HepRandom::getTheEngine()))
+                       , m_rand(new CLHEP::RandFlat(CLHEP::HepRandom::getTheEngine()))
 
 {
     if(m_names.size()<2) { throw std::invalid_argument(
