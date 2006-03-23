@@ -1,9 +1,10 @@
 /** @file release.notes
  @brief package classifier
 
-$Id: release.notes,v 1.13.2.1 2006/02/01 01:11:44 usher Exp $
+$Id: release.notes,v 1.14 2006/03/21 01:38:41 usher Exp $
 @verbatim
  
+ 23-Mar-06  v1r6    Tag for new externals (CLHEP, Gaudi, etc.)
  31-Jan-06  v1r5cl0 Tag development branch for new externals
  30-oct-05  v1r5,p1   Implement filters in GlastClassify.
  29-oct-05  v1r4,p1,p2   allow filter tree 
