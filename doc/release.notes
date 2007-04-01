@@ -1,9 +1,11 @@
 /** @file release.notes
  @brief package classifier
 
-$Id: release.notes,v 1.14 2006/03/21 01:38:41 usher Exp $
+$Id: release.notes,v 1.15 2006/03/23 21:54:31 usher Exp $
 @verbatim
+        EOH
  
+ 31-Mar-07  v1r6p1 jrb  Minor mod for compile under RHEL4
  23-Mar-06  v1r6    Tag for new externals (CLHEP, Gaudi, etc.)
  31-Jan-06  v1r5cl0 Tag development branch for new externals
  30-oct-05  v1r5,p1   Implement filters in GlastClassify.
