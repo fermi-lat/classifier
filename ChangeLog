@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Sat Mar 31 23:16:58 PDT 2007
+classifier/src
+
+Modified Files:
+	RootTuple.cpp 
+Log Message:
+Move #include statements out of anonymous namespace for RHEL4
+
+    *
+------------------------------------------------------------
 TAG
 Tag name: v1r6, operation: add
 Package: classifier
