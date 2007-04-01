@@ -1,7 +1,7 @@
 /** @file RootTuple.cpp
 @brief implementation of RootTuple, RootTuple::Entry
 
-$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/RootTuple.cpp,v 1.2 2005/07/28 20:38:20 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/classifier/src/RootTuple.cpp,v 1.3 2005/07/30 00:07:16 burnett Exp $
 */
 #include "classifier/RootTuple.h"
 #include "TFile.h"
@@ -11,6 +11,11 @@ $Header: /nfs/slac/g/glast/ground/cvs/classifier/src/RootTuple.cpp,v 1.2 2005/07
 
 #include <iostream>
 #include <stdexcept>
+#ifdef WIN32
+#include <float.h> // used to check for NaN
+#else
+#include <cmath>
+#endif
 
 namespace {
 
@@ -36,11 +41,6 @@ namespace {
             }
         }
     }
-#ifdef WIN32
-#include <float.h> // used to check for NaN
-#else
-#include <cmath>
-#endif
 
     bool isFinite(double val) {
         using namespace std; // should allow either std::isfinite or ::isfinite
