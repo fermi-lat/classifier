@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: ecephas  Mon Dec  8 13:40:22 PST 2008
+GlastRelease-scons/classifier
+
+Modified Files:
+	SConscript 
+Log Message:
+Check in SConscript for classifier v1r6p1 (for branch-tag, GlastReleasev15r49) 
+    *
+------------------------------------------------------------
 User: ecephas  Fri Aug 15 14:42:38 PDT 2008
 GlastRelease-scons/classifier
 
