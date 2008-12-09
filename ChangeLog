@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: ecephas  Mon Dec  8 16:08:42 PST 2008
+GlastRelease-scons/classifier
+
+Modified Files:
+	classifierLib.py 
+Log Message:
+Check in classifierLib.py for classifier v1r6p1 (branch-tag, GlastReleasev15r49).
+    *
+------------------------------------------------------------
 TAG
 Tag name: classifier-01-06-01, operation: add
 Package: classifier
