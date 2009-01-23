@@ -1,4 +1,18 @@
 ------------------------------------------------------------
+TAG
+Tag name: classifier-01-06-01, operation: mov
+Package: classifier
+User: glastrm  Thu Jan 22 16:31:26 2009
+Files:
+  classifier/SConscript  1.3
+  classifier/SConscript  1.3
+  classifier/SConscript  1.3
+  classifier/classifierLib.py  1.3
+  classifier/classifierLib.py  1.3
+  classifier/classifierLib.py  1.3
+
+    *
+------------------------------------------------------------
 User: ecephas  Thu Jan 22 16:20:53 PST 2009
 GlastRelease-scons/classifier
 
