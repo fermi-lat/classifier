@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Mon Nov  9 17:20:50 PST 2009
+GlastRelease-scons/classifier
+
+Modified Files:
+	.cvsignore SConscript classifierLib.py 
+Log Message:
+
+    *
+------------------------------------------------------------
 TAG
 Tag name: classifier-01-06-01, operation: mov
 Package: classifier
