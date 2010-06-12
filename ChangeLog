@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Sat Jun 12 15:42:20 PDT 2010
+classifier
+
+Modified Files:
+	SConscript 
+Log Message:
+stag/GoGui_auto-tag
+    *
+------------------------------------------------------------
 TAG
 Tag name: classifier-01-06-03, operation: add
 Package: classifier
