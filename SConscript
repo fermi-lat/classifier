@@ -1,7 +1,7 @@
 # -*- python -*-
-# $Header: /nfs/slac/g/glast/ground/cvs/classifier/SConscript,v 1.6 2010/06/11 00:42:58 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/classifier/SConscript,v 1.7 2010/06/12 22:42:13 jrb Exp $
 # Authors: T. Burnett <tburnett@u.washington.edu>
-# Version: classifier-01-06-03
+# Version: classifier-01-06-04
 Import('baseEnv')
 Import('listFiles')
 Import('packages')
