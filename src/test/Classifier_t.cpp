@@ -1,7 +1,7 @@
 /** @file Classifier_t.cpp
     @brief test program
 
-    $Header: /nfs/slac/g/glast/ground/cvs/classifier/src/test/Classifier_t.cpp,v 1.3 2005/10/29 17:30:13 burnett Exp $
+    $Header: /nfs/slac/g/glast/ground/cvs/classifier/src/test/Classifier_t.cpp,v 1.4 2005/11/04 17:46:17 burnett Exp $
 
     */
 
@@ -27,7 +27,7 @@
 class TestClassifier {
 public:
     TestClassifier()
-        :m_gaussian( new RandGauss(HepRandom::getTheEngine()) )
+        :m_gaussian( new CLHEP::RandGauss(CLHEP::HepRandom::getTheEngine()) )
     {
         defineEvent();
 
@@ -193,7 +193,7 @@ private:
 
     Classifier::Table m_data;
     std::vector<std::string> m_names;
-    RandGauss * m_gaussian;
+    CLHEP::RandGauss * m_gaussian;
 
 };
 

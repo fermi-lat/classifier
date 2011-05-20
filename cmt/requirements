@@ -1,9 +1,9 @@
 package classifier
 
-version v1r6p4
+version v1r6p5
 author T.Burnett <tburnett@u.washington.edu>
 
-# $Header: /nfs/slac/g/glast/ground/cvs/classifier/cmt/requirements,v 1.17 2010/06/12 22:42:13 jrb Exp $
+# $Header: /nfs/slac/g/glast/ground/cvs/classifier/cmt/requirements,v 1.18 2010/06/12 22:42:20 jrb Exp $
 use GlastPolicy *
 use ROOT * IExternal
 use CLHEP * IExternal
