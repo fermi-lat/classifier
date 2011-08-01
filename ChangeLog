@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: heather  Sun Jul 31 20:31:58 PDT 2011
+classifier
+
+Modified Files:
+      Tag: GlastRelease-17-35-23-br01
+	SConscript 
+Log Message:
+reapplying 01-06-04 tag for P7
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-17-35-23-br01, operation: add
 Package: classifier
