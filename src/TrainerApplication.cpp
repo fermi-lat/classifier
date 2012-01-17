@@ -1,7 +1,7 @@
 /** @file TrainerApplication.cpp
     @brief implement TrainerApplication 
 
-    $Header: /cvsroot/d0cvs/classifier/src/TrainerApplication.cpp,v 1.4 2005/03/31 00:39:19 burnett Exp $
+    $Header: /nfs/slac/g/glast/ground/cvs/GlastRelease-scons/classifier/src/TrainerApplication.cpp,v 1.1.1.1 2005/07/03 21:31:35 burnett Exp $
 
     */
 #include "classifier/TrainerApplication.h"
@@ -23,7 +23,7 @@ int chdir(const char* path){return _chdir(path);}
 #endif
 #include <time.h>
 #include <stdio.h>
-
+#include <cstring>
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 TrainerApplication::TrainerApplication(const std::string& datapath, const std::string& outputpath)
