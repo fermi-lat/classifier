@@ -1,10 +1,11 @@
 /** @file release.notes
  @brief package classifier
 
-$Id: release.notes,v 1.19 2010/06/12 22:42:20 jrb Exp $
+$Id: release.notes,v 1.20 2011/05/20 16:14:07 heather Exp $
 @verbatim
         EOH
  
+ classifier-01-06-06 23-Jan-2012    jrb Johann's patches for gcc41
  classifier-01-06-05 20-May-2011    hmk CLHEP 2.1.0.1
  classifier-01-06-04 12-Jun-2010    jrb upgrades for SCons builds
  classifier-01-06-03 12-Jun-2010    jrb upgrades for SCons builds
