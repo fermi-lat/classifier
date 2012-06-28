@@ -2,7 +2,7 @@
     @brief declaration of class RootTuple
 
     @author T. Burnett
-    $Header: /cvsroot/d0cvs/classifier/classifier/RootTuple.h,v 1.6 2005/02/08 21:16:59 burnett Exp $
+    $Header: /nfs/slac/g/glast/ground/cvs/GlastRelease-scons/classifier/classifier/RootTuple.h,v 1.1.1.1 2005/07/03 21:31:35 burnett Exp $
 */
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #ifndef RootTuple_h
@@ -16,6 +16,7 @@ class RootTree;
 
 #include <string>
 #include <vector>
+#include <algorithm>
 
 /** @class RootTuple
 @brief Adapt a ROOT TTree, or set of files, to make it like an STL container
@@ -93,7 +94,7 @@ public:
             :m_tuple(tuple), m_pos( end? tuple->size() : 0 )
         {}
         Iterator(const RootTuple * tuple, unsigned int total)
-            :m_tuple(tuple), m_pos( std::min( tuple->size(), total) )
+          :m_tuple(tuple), m_pos( std::min( (unsigned int) tuple->size(), total) )
         {}
 
         Iterator& operator++(){m_pos++; return *this;}
