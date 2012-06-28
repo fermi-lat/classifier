@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jrb  Thu Jun 28 14:51:22 PDT 2012
+GlastRelease-scons/classifier/classifier
+
+Modified Files:
+	RootTuple.h 
+Log Message:
+be explicit about int type for gcc44
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-17-35-24-lp29, operation: add
 Package: classifier
