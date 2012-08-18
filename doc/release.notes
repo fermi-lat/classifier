@@ -1,10 +1,11 @@
 /** @file release.notes
  @brief package classifier
 
-$Id: release.notes,v 1.21 2012/01/23 19:29:09 jrb Exp $
+$Id: release.notes,v 1.22 2012/06/28 21:51:53 jrb Exp $
 @verbatim
         EOH
  
+ classifier-01-07-00 17-Aug-2012    jrb for Windows no-install-headers
  classifier-01-06-07 28-Jun-2012    jrb patch for gcc44
  classifier-01-06-06 23-Jan-2012    jrb Johann's patches for gcc41
  classifier-01-06-05 20-May-2011    hmk CLHEP 2.1.0.1
