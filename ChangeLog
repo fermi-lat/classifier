@@ -1,5 +1,44 @@
 ------------------------------------------------------------
 TAG
+Tag name: GlastRelease-17-35-24-lp42, operation: add
+Package: classifier
+User: heather  Tue Apr  9 05:04:15 2013
+Files:
+  classifier/classifierLib.py  1.5
+  classifier/.cvsignore  1.2
+  classifier/ChangeLog  1.236
+  classifier/SConscript  1.14
+  classifier/classifier/RootTuple.h  1.2
+  classifier/classifier/RootLoader.h  1.2
+  classifier/classifier/AdaBoost.h  1.2
+  classifier/classifier/RootDecision.h  1.2
+  classifier/classifier/DecisionTree.h  1.5
+  classifier/classifier/TrainingInfo.h  1.2
+  classifier/classifier/Trainer.h  1.1.1.1
+  classifier/classifier/TrainerApplication.h  1.1.1.1
+  classifier/classifier/BackgroundVsEfficiency.h  1.3
+  classifier/classifier/Filter.h  1.3
+  classifier/classifier/Classifier.h  1.5
+  classifier/cmt/.cvsignore  1.1.1.1
+  classifier/cmt/requirements  1.22
+  classifier/doc/release.notes  1.23
+  classifier/src/AdaBoost.cpp  1.2
+  classifier/src/Classifier.cpp  1.6
+  classifier/src/TrainerApplication.cpp  1.2
+  classifier/src/TrainingInfo.cpp  1.4
+  classifier/src/mainpage.h  1.1.1.1
+  classifier/src/BackgroundVsEfficiency.cpp  1.3
+  classifier/src/DecisionTree.cpp  1.5
+  classifier/src/Filter.cpp  1.5
+  classifier/src/RootDecision.cpp  1.1.1.1
+  classifier/src/RootLoader.cpp  1.2
+  classifier/src/RootTuple.cpp  1.4
+  classifier/src/Trainer.cpp  1.1.1.1
+  classifier/src/test/Classifier_t.cpp  1.5
+
+    *
+------------------------------------------------------------
+TAG
 Tag name: GlastRelease-20-08-12, operation: add
 Package: classifier
 User: heather  Tue Apr  9 04:43:17 2013
